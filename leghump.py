@@ -47,17 +47,11 @@ import re
 
 def on_join_hump(data, signal, signal_data):
   network = signal.split(',')[0]
-  joined_nick = weechat.info_get("irc_nick_from_host", signal_data)
-  join_match_data = re.match(':[^!]+!([^@]+@(\S+)) JOIN :?([#&]\S*)', signal_data)
-  parsed_ident_host = join_match_data.group(1).lower()
-  parsed_host = join_match_data.group(2).lower()
-  if weechat.config_get_plugin("compare_idents") == "on":
-    hostkey = parsed_ident_host
-  else:
-    hostkey = parsed_host
+  msg = weechat.info_get_hashtable("irc_message_parse", {"message": signal_data})
 
-  chan_name = join_match_data.group(3)
-  network_chan_name = "%s.%s" % (network, chan_name)
+  joined_nick = msg['nick']
+  chan_name = msg['channel']
+
   chan_buffer = weechat.info_get("irc_buffer", "%s,%s" % (network, chan_name))
 
   if chan_name.lower() == '#leghump':
