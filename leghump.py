@@ -44,6 +44,7 @@ except ImportError:
   import_ok = False
 
 import re
+import random
 
 def on_join_hump(data, signal, signal_data):
   network = signal.split(',')[0]
@@ -55,7 +56,9 @@ def on_join_hump(data, signal, signal_data):
   chan_buffer = weechat.info_get("irc_buffer", "%s,%s" % (network, chan_name))
 
   if chan_name.lower() == '#leghump':
-    weechat.command(chan_buffer, "/me furiously humps %s's leg" % joined_nick)
+    for a in range(0, 2):
+      output = re.sub('!nick!', joined_nick, random.choice(list(open('.weechat/leghump.dat'))))
+      weechat.command(chan_buffer, "/me %s" % output)
 
   return weechat.WEECHAT_RC_OK
 
