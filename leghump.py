@@ -57,7 +57,7 @@ def on_join_hump(data, signal, signal_data):
 
   if chan_name.lower() == '#leghump':
     for a in range(0, 2):
-      output = re.sub('!nick!', joined_nick, random.choice(list(open('.weechat/leghump.dat'))))
+      output = re.sub('!nick!', joined_nick, random.choice(list(open('leghump.dat'))))
       weechat.command(chan_buffer, "/me %s" % output)
 
   return weechat.WEECHAT_RC_OK
