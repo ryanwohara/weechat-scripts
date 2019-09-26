@@ -40,7 +40,7 @@ import_ok = True
 try:
   import weechat
 except ImportError:
-  print "This script must be run under WeeChat."
+  print("This script must be run under WeeChat.")
   import_ok = False
 
 import re
